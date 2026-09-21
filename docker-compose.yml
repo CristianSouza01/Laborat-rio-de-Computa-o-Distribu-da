@@ -1,34 +1,39 @@
-version: '3.8'
-
+# Cluster MPI - 4 nos (master + 3 workers)
+# Observacao: no GitHub Codespaces o trafego entre containers em redes
+# definidas pelo usuario e bloqueado; por isso os nos usam a bridge padrao
+# (network_mode: bridge) e a resolucao de nomes e feita via /etc/hosts.
 services:
   master:
-    build: .
+    build:
+      context: .
+      network: host
+    image: lab3mpi:latest
     container_name: master
     hostname: master
-    networks:
-      - mpi_net
+    network_mode: bridge
+    tty: true
+    command: ["bash", "-c", "service ssh start && tail -f /dev/null"]
 
   worker1:
-    build: .
+    image: lab3mpi:latest
     container_name: worker1
     hostname: worker1
-    networks:
-      - mpi_net
+    network_mode: bridge
+    tty: true
+    command: ["bash", "-c", "service ssh start && tail -f /dev/null"]
 
   worker2:
-    build: .
+    image: lab3mpi:latest
     container_name: worker2
     hostname: worker2
-    networks:
-      - mpi_net
+    network_mode: bridge
+    tty: true
+    command: ["bash", "-c", "service ssh start && tail -f /dev/null"]
 
   worker3:
-    build: .
+    image: lab3mpi:latest
     container_name: worker3
     hostname: worker3
-    networks:
-      - mpi_net
-
-networks:
-  mpi_net:
-    driver: bridge
+    network_mode: bridge
+    tty: true
+    command: ["bash", "-c", "service ssh start && tail -f /dev/null"]

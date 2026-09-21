@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
     sudo \
     && apt-get clean
 
+# Binding Python do MPI (pacote do Ubuntu, ja compilado contra o OpenMPI do no)
+RUN apt-get update && apt-get install -y python3-mpi4py && apt-get clean
+
 # Configuração do SSH
 RUN mkdir /var/run/sshd
 RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
